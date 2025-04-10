@@ -11,18 +11,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.bank.dto.EmployeeRequest;
 import com.bank.model.Employee;
 import com.bank.service.EmployeeServiceImp;
 
+@RestController
+@RequestMapping("/employee")
 public class EmployeeController {
 	
 	@Autowired
 	private EmployeeServiceImp service;
 
 	@PostMapping
-	public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
-		return new ResponseEntity<>(service.creteEmployee(employee), HttpStatus.CREATED);
+	public ResponseEntity<Employee> createEmployee(@RequestBody EmployeeRequest employeeRequest) {
+		return new ResponseEntity<>(service.creteEmployee(employeeRequest), HttpStatus.CREATED);
 	}
 
 	@GetMapping
@@ -36,8 +41,8 @@ public class EmployeeController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
-		return ResponseEntity.ok(service.updateEmployee(id, employee));
+	public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody EmployeeRequest employeeRequest) {
+		return ResponseEntity.ok(service.updateEmployee(id, employeeRequest));
 	}
 
 	@DeleteMapping("/{id}")
