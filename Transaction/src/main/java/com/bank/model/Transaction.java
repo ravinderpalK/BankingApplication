@@ -14,21 +14,21 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "transcation")
 public class Transaction {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long transactionId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long transactionId;
 
-    private Long accountId;
-    
-    private BigDecimal amount;
+	private Long accountId;
 
-    @Enumerated(EnumType.STRING)
-    private TransactionType transactionType;
-    
-    @Enumerated(EnumType.STRING)
-    private TransactionStatus transactionStatus;
+	private BigDecimal amount;
 
-    private LocalDateTime timestamp;
+	@Enumerated(EnumType.STRING)
+	private TransactionType transactionType;
+
+	@Enumerated(EnumType.STRING)
+	private TransactionStatus transactionStatus;
+
+	private LocalDateTime timestamp;
 
 	public Transaction() {
 		super();
@@ -92,6 +92,5 @@ public class Transaction {
 	public void setTimestamp(LocalDateTime timestamp) {
 		this.timestamp = timestamp;
 	}
-    
-    
+
 }

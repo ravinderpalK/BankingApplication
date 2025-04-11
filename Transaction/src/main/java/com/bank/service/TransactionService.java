@@ -8,7 +8,7 @@ public interface TransactionService {
 	
 	public static final TransactionRepository transactionRepository = null;
 	
-	public Transaction creteTransaction(Transaction transaction);
+	public Transaction createTransaction(Transaction transaction);
 	public Transaction getTransaction(Long id);
 	public List<Transaction> getAllTransaction();
 

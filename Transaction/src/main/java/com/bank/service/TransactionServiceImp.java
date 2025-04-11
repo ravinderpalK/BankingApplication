@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bank.exception.TransactionNotFoundException;
 import com.bank.model.Transaction;
 import com.bank.repository.TransactionRepository;
 
@@ -15,22 +16,21 @@ public class TransactionServiceImp implements TransactionService {
 	private TransactionRepository transactionRepository;
 
 	@Override
-	public Transaction creteTransaction(Transaction transaction) {
-		// TODO Auto-generated method stub
-		return null;
+	public Transaction createTransaction(Transaction transaction) {
+		return transactionRepository.save(transaction);
 	}
 
 	@Override
-	public Transaction getTransaction(Long id) {
+	public Transaction getTransaction(Long transactionId) {
 		// TODO Auto-generated method stub
-		return null;
+		return transactionRepository.findById(transactionId)
+				.orElseThrow(() -> new TransactionNotFoundException("No such transaction present."));
 	}
 
 	@Override
 	public List<Transaction> getAllTransaction() {
 		// TODO Auto-generated method stub
-		return null;
+		return transactionRepository.findAll();
 	}
-	
-	
+
 }
