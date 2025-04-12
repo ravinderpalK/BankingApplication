@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bank.dto.CurrentAccountRequest;
+import com.bank.dto.SavingsAccountRequest;
 import com.bank.model.Account;
 import com.bank.model.CurrentAccount;
 import com.bank.model.SavingsAccount;
 import com.bank.service.AccountServiceImp;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/account")
@@ -27,13 +31,13 @@ public class AccountController {
 	private AccountServiceImp service;
 
 	@PostMapping("/saving")
-	public ResponseEntity<Account> openSavingAccount(@RequestBody SavingsAccount savingsAccount) {
-		return new ResponseEntity<>(service.openSavingAccount(savingsAccount), HttpStatus.CREATED);
+	public ResponseEntity<Account> openSavingAccount(@Valid @RequestBody SavingsAccountRequest savingAccountRequest) {
+		return new ResponseEntity<>(service.openSavingAccount(savingAccountRequest), HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/current")
-	public ResponseEntity<Account> openCurrentAccount(@RequestBody CurrentAccount currentAccount) {
-		return new ResponseEntity<>(service.openCurrentAccount(currentAccount), HttpStatus.CREATED);
+	public ResponseEntity<Account> openCurrentAccount(@Valid @RequestBody CurrentAccountRequest currentAccountRequest) {
+		return new ResponseEntity<>(service.openCurrentAccount(currentAccountRequest), HttpStatus.CREATED);
 	}
 
 	@GetMapping
@@ -46,10 +50,6 @@ public class AccountController {
 		return ResponseEntity.ok(service.getAccount(id));
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<Account> updateAccount(@PathVariable Long id, @RequestBody Account account) {
-		return ResponseEntity.ok(service.updateAccount(id, account));
-	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteAccount(@PathVariable Long id) {

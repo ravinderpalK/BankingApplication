@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bank.dto.CurrentAccountRequest;
+import com.bank.dto.SavingsAccountRequest;
 import com.bank.exception.AccountNotFoundException;
 import com.bank.model.Account;
+import com.bank.model.AccountStatus;
 import com.bank.model.CurrentAccount;
 import com.bank.model.SavingsAccount;
 import com.bank.repository.AccountRepository;
@@ -16,32 +19,44 @@ public class AccountServiceImp implements AccountService {
 
 	@Autowired
 	private AccountRepository accountRepository;
-	
+
 	@Override
-	public Account openSavingAccount(SavingsAccount savingsAccount) {
-		return accountRepository.save(savingsAccount);
+	public Account openSavingAccount(SavingsAccountRequest savingsAccountRequest) {
+
+		SavingsAccount account = new SavingsAccount();
+		account.setCustomerId(savingsAccountRequest.getCustomerId());
+		account.setBalance(savingsAccountRequest.getBalance());
+		account.setInterestRate(savingsAccountRequest.getInterestRate());
+		account.setStatus(AccountStatus.ACTIVE);
+		account.setCreatedByEmployeeId(savingsAccountRequest.getCreatedByEmployeeId());
+
+		return accountRepository.save(account);
 	}
 
 	@Override
-	public Account openCurrentAccount(CurrentAccount currentAccount) {
-		return accountRepository.save(currentAccount);
+	public Account openCurrentAccount(CurrentAccountRequest currentAccountRequest) {
+		CurrentAccount account = new CurrentAccount();
+		account.setCustomerId(currentAccountRequest.getCustomerId());
+		account.setBalance(currentAccountRequest.getBalance());
+		account.setStatus(AccountStatus.ACTIVE);
+		account.setCreatedByEmployeeId(currentAccountRequest.getCreatedByEmployeeId());
+		account.setOverdraftLimit(currentAccountRequest.getOverdraftLimit());
+		return accountRepository.save(account);
 	}
 
 	@Override
 	public Account getAccount(Long id) {
-		return accountRepository.findById(id).orElseThrow(() -> new AccountNotFoundException("No such account present"));
-	}
-
-	@Override
-	public Account updateAccount(Long id, Account updatedAccount) {
-		// TODO Auto-generated method stub
-		return null;
+		return accountRepository.findById(id)
+				.orElseThrow(() -> new AccountNotFoundException("No such account present"));
 	}
 
 	@Override
 	public Account closeAccount(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Account account = accountRepository.findById(id)
+				.orElseThrow(() -> new AccountNotFoundException("Account not found with id: " + id));
+
+		account.setStatus(AccountStatus.CLOSED);
+		return accountRepository.save(account);
 	}
 
 	@Override
@@ -49,5 +64,4 @@ public class AccountServiceImp implements AccountService {
 		return accountRepository.findAll();
 	}
 
-	
 }

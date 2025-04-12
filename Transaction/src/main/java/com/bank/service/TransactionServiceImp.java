@@ -22,14 +22,12 @@ public class TransactionServiceImp implements TransactionService {
 
 	@Override
 	public Transaction getTransaction(Long transactionId) {
-		// TODO Auto-generated method stub
 		return transactionRepository.findById(transactionId)
 				.orElseThrow(() -> new TransactionNotFoundException("No such transaction present."));
 	}
 
 	@Override
 	public List<Transaction> getAllTransaction() {
-		// TODO Auto-generated method stub
 		return transactionRepository.findAll();
 	}
 
