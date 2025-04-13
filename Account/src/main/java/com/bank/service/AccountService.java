@@ -1,5 +1,6 @@
 package com.bank.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.bank.dto.CurrentAccountRequest;
@@ -15,5 +16,8 @@ public interface AccountService {
 	public Account getAccount(Long id);
 	public Account closeAccount(Long id);
 	public List<Account> getAllAccount();
+	public List<Account> getAllSavingsAccount();
+	public List<Account> getAllCurrentAccount();
+	public void updateBalance(Long id, BigDecimal newBalance);
 
 }

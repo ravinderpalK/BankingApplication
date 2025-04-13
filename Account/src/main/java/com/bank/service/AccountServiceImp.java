@@ -1,5 +1,6 @@
 package com.bank.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,25 @@ public class AccountServiceImp implements AccountService {
 	@Override
 	public List<Account> getAllAccount() {
 		return accountRepository.findAll();
+	}
+
+	@Override
+	public List<Account> getAllSavingsAccount() {
+		return accountRepository.findByAccountType("SAVINGS");
+	}
+
+	@Override
+	public List<Account> getAllCurrentAccount() {
+		return accountRepository.findByAccountType("CURRENT");
+	}
+
+	@Override
+	public void updateBalance(Long id, BigDecimal newBalance) {
+		Account account = accountRepository.findById(id)
+				.orElseThrow(() -> new AccountNotFoundException("Account not found with id: " + id));
+
+		account.setBalance(newBalance);
+		accountRepository.save(account);
 	}
 
 }
