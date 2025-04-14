@@ -1,0 +1,9 @@
+2025-04-14 15:53:53 [main] INFO  com.bank.service.UserServiceImpTest - Found User: john_doe
+2025-04-14 15:53:53 [main] INFO  com.bank.service.UserServiceImpTest - Total Users Retrieved: 2
+2025-04-14 15:53:53 [main] INFO  com.bank.service.UserServiceImpTest - User not found - Exception thrown successfully.
+2025-04-14 15:53:53 [main] INFO  com.bank.service.UserServiceImpTest - User not found for deletion - Exception thrown successfully.
+2025-04-14 15:53:53 [main] INFO  com.bank.service.UserServiceImpTest - User deleted successfully.
+2025-04-14 15:53:53 [main] INFO  com.bank.service.UserServiceImpTest - Created User: john_doe
+2025-04-14 15:53:53 [main] INFO  com.bank.service.UserServiceImpTest - User not found for update - Exception thrown successfully.
+2025-04-14 15:53:53 [main] INFO  com.bank.service.UserServiceImpTest - Updated User: Jane Doe, 9876543210
+2025-04-14 15:53:53 [main] INFO  com.bank.service.UserServiceImpTest - User already exists - Exception thrown successfully.
