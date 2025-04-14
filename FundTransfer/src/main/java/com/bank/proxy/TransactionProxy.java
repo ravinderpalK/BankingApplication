@@ -1,4 +1,4 @@
-package com.service.proxy;
+package com.bank.proxy;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +9,6 @@ import com.bank.dto.TransactionRequest;
 @FeignClient(name = "TransactionService")
 public interface TransactionProxy {
 	
-	@PostMapping("/transactions")
+	@PostMapping("/transaction")
     void createTransaction(@RequestBody TransactionRequest transaction);
 }

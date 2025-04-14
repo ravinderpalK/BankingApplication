@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bank.dto.BalanceUpdateRequest;
 import com.bank.dto.CurrentAccountRequest;
 import com.bank.dto.SavingsAccountRequest;
 import com.bank.model.Account;
@@ -44,15 +45,30 @@ public class AccountController {
 	public ResponseEntity<List<Account>> getAllAccount() {
 		return ResponseEntity.ok(service.getAllAccount());
 	}
+	
+	@GetMapping("/saving")
+	public ResponseEntity<List<Account>> getAllSavingsAccount() {
+		return ResponseEntity.ok(service.getAllSavingsAccount());
+	}
+	
+	@GetMapping("/current")
+	public ResponseEntity<List<Account>> getAllCurrentAccount() {
+		return ResponseEntity.ok(service.getAllCurrentAccount());
+	}
+	
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Account> getAccount(@PathVariable Long id) {
 		return ResponseEntity.ok(service.getAccount(id));
 	}
-
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Account> updateBalance(@PathVariable Long id, @RequestBody BalanceUpdateRequest request) {
+		return ResponseEntity.ok(service.updateBalance(id, request.getBalance()));
+	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteAccount(@PathVariable Long id) {
+	public ResponseEntity<String> closeAccount(@PathVariable Long id) {
 		service.closeAccount(id);
 		return ResponseEntity.ok("Account deleted successfully");
 	}

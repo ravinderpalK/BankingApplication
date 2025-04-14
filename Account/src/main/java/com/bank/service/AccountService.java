@@ -18,6 +18,6 @@ public interface AccountService {
 	public List<Account> getAllAccount();
 	public List<Account> getAllSavingsAccount();
 	public List<Account> getAllCurrentAccount();
-	public void updateBalance(Long id, BigDecimal newBalance);
+	public Account updateBalance(Long id, BigDecimal newBalance);
 
 }

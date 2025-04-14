@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bank.dto.AccountResponse;
+import com.bank.dto.BalanceUpdateRequest;
 import com.bank.exception.AccountNotFoundException;
 import com.bank.exception.TransactionNotFoundException;
 import com.bank.model.Transaction;
@@ -49,7 +50,9 @@ public class TransactionServiceImp implements TransactionService {
 			throw new AccountNotFoundException("account not found with id "+ accountId);
 		}
         BigDecimal updatedBalance = account.getBalance().add(amount);
-        serviceProxy.updateBalance(accountId, updatedBalance);
+        BalanceUpdateRequest balanceUpdateRequest = new BalanceUpdateRequest();
+        balanceUpdateRequest.setBalance(updatedBalance);
+        serviceProxy.updateBalance(accountId, balanceUpdateRequest);
 
         Transaction transaction = new Transaction();
         transaction.setAccountId(accountId);
@@ -73,7 +76,9 @@ public class TransactionServiceImp implements TransactionService {
         }
 
         BigDecimal updatedBalance = account.getBalance().subtract(amount);
-        serviceProxy.updateBalance(accountId, updatedBalance);
+        BalanceUpdateRequest balanceUpdateRequest = new BalanceUpdateRequest();
+        balanceUpdateRequest.setBalance(updatedBalance);
+        serviceProxy.updateBalance(accountId, balanceUpdateRequest);
 
         Transaction transaction = new Transaction();
         transaction.setAccountId(accountId);

@@ -67,21 +67,22 @@ public class AccountServiceImp implements AccountService {
 
 	@Override
 	public List<Account> getAllSavingsAccount() {
-		return accountRepository.findByAccountType("SAVINGS");
+		return accountRepository.findByAccountType(SavingsAccount.class);
 	}
 
 	@Override
 	public List<Account> getAllCurrentAccount() {
-		return accountRepository.findByAccountType("CURRENT");
+		return accountRepository.findByAccountType(CurrentAccount.class);
 	}
 
 	@Override
-	public void updateBalance(Long id, BigDecimal newBalance) {
+	public Account updateBalance(Long id, BigDecimal newBalance) {
 		Account account = accountRepository.findById(id)
-				.orElseThrow(() -> new AccountNotFoundException("Account not found with id: " + id));
+	            .orElseThrow(() -> new AccountNotFoundException("Account not found with id: " + id));
 
-		account.setBalance(newBalance);
-		accountRepository.save(account);
+	    account.setBalance(newBalance);
+	    return accountRepository.save(account);
 	}
+
 
 }

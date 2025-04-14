@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class AccountResponse {
+	
 	private Long accountId;
     private Long customerId;
     private BigDecimal balance;

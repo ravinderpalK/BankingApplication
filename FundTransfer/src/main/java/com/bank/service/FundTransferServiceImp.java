@@ -8,14 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bank.dto.AccountResponse;
+import com.bank.dto.BalanceUpdateRequest;
 import com.bank.dto.TransactionRequest;
 import com.bank.dto.TransactionStatus;
 import com.bank.dto.TransactionType;
 import com.bank.model.FundTransfer;
 import com.bank.model.FundTransferStatus;
+import com.bank.proxy.AccountProxy;
+import com.bank.proxy.TransactionProxy;
 import com.bank.repository.FundTransferRepository;
-import com.service.proxy.AccountProxy;
-import com.service.proxy.TransactionProxy;
 
 import caom.bank.exception.TransactionNotFoundException;
 
@@ -41,8 +42,13 @@ public class FundTransferServiceImp implements FundTransferService{
             throw new RuntimeException("Insufficient balance");
         }
 
-        accountProxy.updateBalance(fromId, fromAccount.getBalance().subtract(amount));
-        accountProxy.updateBalance(toId, toAccount.getBalance().add(amount));
+        BalanceUpdateRequest balanceUpdateRequest1 = new BalanceUpdateRequest();
+        balanceUpdateRequest1.setBalance(fromAccount.getBalance().subtract(amount));
+        accountProxy.updateBalance(fromId, balanceUpdateRequest1);
+        
+        BalanceUpdateRequest balanceUpdateRequest2 = new BalanceUpdateRequest();
+        balanceUpdateRequest2.setBalance(toAccount.getBalance().add(amount));
+        accountProxy.updateBalance(toId, balanceUpdateRequest2);
 
         // Save fund transfer record
         FundTransfer fundTransfer = new FundTransfer();
